@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-6z0q$pffo70mvnc=vt7jccn*kz8h4ocybewogcl0no+%96wao_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'books',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'book_management.urls'
@@ -123,3 +126,31 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#配置时区
+TIME_ZONE = 'Asia/Shanghai'  # 设置为上海时区（GMT+8）
+USE_TZ = True  # 启用时区支持
+
+#配置数据库连接
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # 使用MySQL数据库
+        'NAME': 'books',  # 数据库名称
+        'USER': 'root',  # 数据库用户名
+        'PASSWORD': 'jixiang606',  # 数据库密码
+        'HOST': 'localhost',  # 数据库主机，通常是localhost或数据库的IP
+        'PORT': '3308',  # MySQL默认端口
+    }
+}
+
+CORS_ORIGIN_ALLOW_ALL = True  # 或者配置具体允许的前端域
+
+
+#配置本地缓存
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',  # 缓存位置，可以随便写
+    }
+}
+
